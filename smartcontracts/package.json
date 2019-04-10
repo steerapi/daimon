@@ -1,0 +1,26 @@
+{
+  "name": "daimon-contracts",
+  "version": "1.0.0",
+  "description": "Smart contracts for DaiMoN, A Decentralized Artificial Intelligence Model Network",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "@drizzle-utils/core": "^0.1.7-alpha.0",
+    "@drizzle-utils/get-contract-instance": "^0.1.7-alpha.0",
+    "@drizzle-utils/get-web3": "^0.1.7-alpha.0",
+    "await-timeout": "^0.3.0",
+    "drizzle-utils": "^0.1.1",
+    "openzeppelin-solidity": "^2.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "nodetest": "node test.js",
+    "test": "truffle test",
+    "compile": "truffle compile",
+    "migrate": "truffle migrate"
+  },
+  "author": "",
+  "license": "ISC"
+}
