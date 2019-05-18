@@ -60,8 +60,9 @@ contract Daimon {
         _createdAt = block.timestamp;
         _startTime = _createdAt + problemDefinitionPeriodInSeconds;
         _blockTime = blockTimeInSeconds;
-        _nextBlockTime = _startTime + _blockTime;
+        _nextBlockTime = _startTime; // require commit before voting begins + _blockTime;
         _multiplier = _token.multiplier();
+        emit DaimonCreated(name, symbol, decimals, problemDefinitionPeriodInSeconds, blockTimeInSeconds, _startTime);
     }
 
     // submit test set    
@@ -122,6 +123,7 @@ contract Daimon {
         uint256[] memory distances,
         uint256[] memory scores
     ) public {
+        require(block.timestamp >= _startTime, 'voting period has not started yet.');
         require(block.timestamp < _nextBlockTime, 'voting period has ended, please commit this period first');
         require(distances.length == _problemBlocks.length, 'distances length must be equal to the problems length');
         for (uint i = 0; i < _problemBlocks.length; i++) {
@@ -164,8 +166,8 @@ contract Daimon {
     }
 
     function _rewardScaling(uint256 amount, uint256 position) internal view returns (uint256) {
-        // half each position starting from 0
-        return amount/((2)**(position));
+        // half each position starting from 1
+        return amount/((2)**(position+1));
     }
 
     function _moveBlock() internal {
@@ -221,6 +223,14 @@ contract Daimon {
     }
 
     // -- events --
+    event DaimonCreated(
+        string name, 
+        string symbol, 
+        uint8 decimals,
+        uint256 problemDefinitionPeriodInSeconds,
+        uint256 blockTimeInSeconds,
+        uint256 startTime
+    );
     event TestSetSubmitted(address submitter, bytes32 testSetDigest, uint256 position, uint256 endAt);
     event ModelSubmitted(address submitter, bytes32 modelDigest, uint256 position, uint256 endAt);
     event BlockVoted(address submitter, bytes32 modelDigest, bytes32 distancesDigest, uint256[] distances, uint256[] scores, uint256 endAt);

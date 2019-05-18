@@ -19,7 +19,8 @@
     "nodetest": "node test.js",
     "test": "truffle test",
     "compile": "truffle compile",
-    "migrate": "truffle migrate"
+    "migrate": "truffle migrate",
+    "migratereset": "truffle migrate --reset"
   },
   "author": "",
   "license": "ISC"

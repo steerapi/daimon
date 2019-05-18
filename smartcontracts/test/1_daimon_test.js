@@ -41,6 +41,16 @@ async function getInstance(name, address) {
 }
 
 contract('Daimon', async (accounts) => {
+  it('should create daimon', async () => {
+    let instance = await getInstance('DaimonFactory');
+    let result = instance.methods
+      .create('Daimon', 'DAIMON', 18, 5, 5)
+      .send({ from: accounts[0], gas: 6000000 });
+    let x = await result.promise;
+    // console.log('multiplier', multiplier);
+    // assert.equal(multiplier.toNumber(), 10 ** 18);
+  });
+
   it('should get multiplier', async () => {
     let instance = await getInstance('Daimon');
     let multiplier = await instance.methods.multiplier().call();

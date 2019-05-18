@@ -42,7 +42,7 @@ async function getInstance(name, address) {
 async function run() {
   let accounts = await getAccounts();
   let instance = await getInstance(
-    './build/contracts/Daimon.json',
+    '../client/src/contracts/Daimon.json',
     '0x0ee26436cD3915740ee48E6e95F27a3fe79CeD00'
   );
 
